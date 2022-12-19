@@ -7,9 +7,13 @@ import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.Size;
 
 
+import java.io.Serializable;
+import java.util.List;
+
+
 @Entity
 @Table(name = "Product")
-public class Product {
+public class Product implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
@@ -24,22 +28,22 @@ public class Product {
     @Max(value = 1000000, message = "Максимальная цена не должна превышать 1000000 рублей")
     private double price;
 
-    @ManyToOne
-    @JoinColumn(name = "product_id", referencedColumnName = "id")
-    private MarketCheck marketCheck;
+    @OneToMany(mappedBy = "productId")
+    private List<Purchases> purchasesList;
+
     public Product() {
 
-    }
-
-    public Product(String name, double price, MarketCheck marketCheck) {
-        this.name = name;
-        this.price = price;
-        this.marketCheck = marketCheck;
     }
 
     public Product(String name, double price) {
         this.name = name;
         this.price = price;
+    }
+
+    public Product(String name, double price, List<Purchases> purchasesList) {
+        this.name = name;
+        this.price = price;
+        this.purchasesList = purchasesList;
     }
 
     public int getId() {
@@ -66,12 +70,12 @@ public class Product {
         this.price = price;
     }
 
-    public MarketCheck getMarketCheck() {
-        return marketCheck;
+    public List<Purchases> getPurchasesList() {
+        return purchasesList;
     }
 
-    public void setMarketCheck(MarketCheck marketCheck) {
-        this.marketCheck = marketCheck;
+    public void setPurchasesList(List<Purchases> purchasesList) {
+        this.purchasesList = purchasesList;
     }
 
     @Override

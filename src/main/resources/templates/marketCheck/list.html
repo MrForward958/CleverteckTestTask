@@ -5,9 +5,13 @@
   <title>List of checks</title>
 </head>
 <body>
-<div th:each="marketChek : ${marketCheckList}">
+<div th:if="${!marketCheckList.isEmpty()}" th:each="marketChek : ${marketCheckList}">
   <a th:text="${'Номер чека: ' + marketChek.getId() + ', Дата открытия чека: ' + marketChek.getCreateDate()}"
      th:href="@{/marketCheck/{id}(id=${marketChek.getId()})}"></a>
+</div>
+
+<div th:if="${marketCheckList.isEmpty()}">
+  <a style="color: red">Чеков нет</a>
 </div>
 <!--<form th:method="GET" th:action="@{/product/new}">-->
 <!--  <input type="submit" value="Добавить продукт">-->

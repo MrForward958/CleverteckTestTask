@@ -11,7 +11,7 @@ import java.util.List;
 
 @Entity
 @Table(name = "Market_check")
-public class MarketCheck {
+public class MarketCheck{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
@@ -34,19 +34,19 @@ public class MarketCheck {
     @Column(name = "open_status")
     private Boolean openStatus;
 
+    @OneToMany(mappedBy = "checkId")
+    private List<Purchases> purchasesList;
 
-    @OneToMany(mappedBy = "marketCheck")
-    private List<Product> products;
 
     public MarketCheck(){
     }
 
-    public MarketCheck(int cardNumber, String marketName, Date createDate, Boolean openStatus, List<Product> products) {
+    public MarketCheck(int cardNumber, String marketName, Date createDate, Boolean openStatus, List<Purchases> purchasesList) {
         this.cardNumber = cardNumber;
         this.marketName = marketName;
         this.createDate = createDate;
         this.openStatus = openStatus;
-        this.products = products;
+        this.purchasesList = purchasesList;
     }
 
     public MarketCheck(int cardNumber, String marketName, Date createDate, Boolean openStatus) {
@@ -96,12 +96,12 @@ public class MarketCheck {
         this.openStatus = openStatus;
     }
 
-    public List<Product> getProducts() {
-        return products;
+    public List<Purchases> getPurchasesList() {
+        return purchasesList;
     }
 
-    public void setProducts(List<Product> products) {
-        this.products = products;
+    public void setPurchasesList(List<Purchases> purchasesList) {
+        this.purchasesList = purchasesList;
     }
 
     @Override
