@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title th:valuetype="${product.getName()}">Title</title>
+</head>
+<body>
+<p th:text="${product.getName()}+', '+${product.getPrice()}">Info about Product</p>
+
+<form th:method="GET" th:action="@{/product/{id}/edit(id=${product.getId()})}">
+    <input type="submit" value="Отредактировать продукт!">
+</form>
+<br/>
+<form th:method="DELETE" th:action="@{/product/{id}(id=${product.getId()})}">
+    <input style="color: red" type="submit" value="Удалить продукт!">
+</form>
+<br/>
+<form th:method="GET" th:action="@{/product}">
+    <input style="color: black" type="submit" value=">>BACK<<">
+</form>
+</body>
+</html>

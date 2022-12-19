@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>List of checks</title>
+</head>
+<body>
+<div th:each="marketChek : ${marketCheckList}">
+  <a th:text="${'Номер чека: ' + marketChek.getId() + ', Дата открытия чека: ' + marketChek.getCreateDate()}"
+     th:href="@{/marketCheck/{id}(id=${marketChek.getId()})}"></a>
+</div>
+<!--<form th:method="GET" th:action="@{/product/new}">-->
+<!--  <input type="submit" value="Добавить продукт">-->
+<!--</form>-->
+</body>
+</html>

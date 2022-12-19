@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title th:valuetype="${marketCheck.getId()}">Title</title>
+</head>
+<body>
+<span th:text="${'|Id чека: ' + marketCheck.getId() + '|'}"/><span th:text="${marketCheck.getMarketName() + '|'}"/>
+<div th:if="${marketCheck.getCardNumber()}!=0">
+  <span th:text="'|Дисконтная карта: ' + ${marketCheck.getCardNumber()}+'|'"/>
+</div>
+<div th:if="${marketCheck.getCardNumber()}==0">
+  <span th:text="'|Дисконтная карта не предявлена'+'|'"/>
+</div>
+--------------------------------------------
+<div th:each="product : ${marketCheck.getProduct()}"
+
+<!--<form th:method="GET" th:action="@{/product/{id}/edit(id=${product.getId()})}">-->
+<!--  <input type="submit" value="Отредактировать продукт!">-->
+<!--</form>-->
+<!--<br/>-->
+<!--<form th:method="DELETE" th:action="@{/product/{id}(id=${product.getId()})}">-->
+<!--  <input style="color: red" type="submit" value="Удалить продукт!">-->
+<!--</form>-->
+<!--<br/>-->
+<!--<form th:method="GET" th:action="@{/product}">-->
+<!--  <input style="color: black" type="submit" value=">>BACK<<">-->
+<!--</form>-->
+</body>
+</html>
