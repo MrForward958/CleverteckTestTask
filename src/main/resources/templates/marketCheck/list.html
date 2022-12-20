@@ -13,8 +13,8 @@
 <div th:if="${marketCheckList.isEmpty()}">
   <a style="color: red">Чеков нет</a>
 </div>
-<!--<form th:method="GET" th:action="@{/product/new}">-->
-<!--  <input type="submit" value="Добавить продукт">-->
-<!--</form>-->
+<form th:method="get" th:action="@{/marketCheck/new}">
+  <input style="color: green" type="submit"  value="Открыть новый чек">
+</form>
 </body>
 </html>

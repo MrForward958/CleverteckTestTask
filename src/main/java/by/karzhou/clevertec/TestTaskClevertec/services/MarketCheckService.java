@@ -48,4 +48,18 @@ public class MarketCheckService {
         marketCheck.setOpenStatus(true);
         marketCheckRepository.save(marketCheck);
     }
+
+    @Transactional
+    public void update(Purchases purchases, int id) {
+        MarketCheck marketCheck = marketCheckRepository.findMarketCheckById(id).get();
+        marketCheck.getPurchasesList().add(purchases);
+        marketCheckRepository.save(marketCheck);
+    }
+
+    @Transactional
+    public void closeCheck(int id){
+        MarketCheck marketCheck = marketCheckRepository.findMarketCheckById(id).get();
+        marketCheck.setOpenStatus(false);
+        marketCheckRepository.save(marketCheck);
+    }
 }

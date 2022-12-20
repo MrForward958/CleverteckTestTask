@@ -1,7 +1,8 @@
 package by.karzhou.clevertec.TestTaskClevertec.models;
 
 import jakarta.persistence.*;
-import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.Max;
+import jakarta.validation.constraints.Min;
 
 @Entity
 @Table(name = "Purchases")
@@ -12,11 +13,13 @@ public class Purchases{
     private int id;
 
     @Column(name = "amount")
+    @Min(value = 1,message = "Количество товара должно быть не меньше 1 ед.")
+    @Max(value = 100, message = "Количество товара не может превышать 100 ед.")
     private int amount;
 
     @ManyToOne
     @JoinColumn(name = "check_id", referencedColumnName = "id")
-    private MarketCheck checkId;
+    private MarketCheck marketCheck;
 
     @ManyToOne
     @JoinColumn(name = "product_id", referencedColumnName = "id")
@@ -27,9 +30,9 @@ public class Purchases{
 
     }
 
-    public Purchases(int amount, MarketCheck checkId, Product productId) {
+    public Purchases(int amount, MarketCheck marketCheck, Product productId) {
         this.amount = amount;
-        this.checkId = checkId;
+        this.marketCheck = marketCheck;
         this.productId = productId;
     }
 
@@ -42,12 +45,12 @@ public class Purchases{
     }
 
 
-    public MarketCheck getCheckId() {
-        return checkId;
+    public MarketCheck getMarketCheck() {
+        return marketCheck;
     }
 
-    public void setCheckId(MarketCheck checkId) {
-        this.checkId = checkId;
+    public void setMarketCheck(MarketCheck marketCheck) {
+        this.marketCheck = marketCheck;
     }
 
     public Product getProductId() {

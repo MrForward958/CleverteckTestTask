@@ -3,8 +3,6 @@ package by.karzhou.clevertec.TestTaskClevertec.models;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Max;
 import jakarta.validation.constraints.Min;
-import jakarta.validation.constraints.NotEmpty;
-import jakarta.validation.constraints.Size;
 
 import java.util.Date;
 import java.util.List;
@@ -32,7 +30,7 @@ public class MarketCheck{
     @Column(name = "open_status")
     private Boolean openStatus;
 
-    @OneToMany(mappedBy = "checkId")
+    @OneToMany(mappedBy = "marketCheck")
     private List<Purchases> purchasesList;
 
     public MarketCheck(){

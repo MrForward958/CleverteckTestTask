@@ -7,7 +7,7 @@
 <body>
 <span th:text="${'|Id чека: ' + marketCheck.getId() + '|'}"/><span th:text="${marketCheck.getMarketName() + '|'}"/>
 <div th:if="${marketCheck.getCardNumber()}!=0">
-  <span th:text="'|Дисконтная карта: ' + ${marketCheck.getCardNumber()}+'|'"/>
+  <span style="color: green" th:text="'|Дисконтная карта: ' + ${marketCheck.getCardNumber()}+'|'"/>
   <br/>
   <h>-------------------------------------------</h>
   <div th:if="${!marketCheck.getPurchasesList().isEmpty()}">
@@ -39,7 +39,7 @@
 
 <!--Без дискнотной - без скидки-->
 <div th:if="${marketCheck.getCardNumber()}==0">
-  <span th:text="'|Дисконтная карта не предявлена'+'|'"/>
+  <span style="color: red" th:text="'|Дисконтная карта не предявлена'+'|'"/>
   <br/>
   <h>-------------------------------------------</h>
   <div th:if="${!marketCheck.getPurchasesList().isEmpty()}">
@@ -60,10 +60,28 @@
 <div th:if="${!marketCheck.getOpenStatus()}">
   <span style="color: red"> Чек закрыт</span>
 </div>
-<div th:if="${marketCheck.getOpenStatus()}">
-  <form>
 
+<div th:if="${marketCheck.getOpenStatus()}">
+  <form th:method="patch" th:action="@{/marketCheck/{id}(id=${marketCheck.getId()})}" th:object="${purchase}">
+    <label for="purchase">Выберите товар для добавления в чек:</label>
+    <select th:object="${purchase}" th:field="*{productId}" id="purchase">
+        <option th:each="product : ${productList}" th:value="${product.getId()}"
+                th:text="${product.getName()}"></option>
+      </select>
+    <label for="amount">Выберите количество товара от 1 до 100: </label>
+    <input type="text" th:field="*{amount}" id="amount"/>
+    <div style="color: red" th:if="${#fields.hasErrors('amount')}" th:errors="*{amount}">Error for field amount</div>
+    <br/>
+    <input style="color: green" type="submit" value="Добавить товар"/>
   </form>
 </div>
+<div th:if="${marketCheck.getOpenStatus()}">
+  <form th:method="PATCH" th:action="@{/marketCheck/close/{id}(id=${marketCheck.getId()})}">
+    <input style="color: red" type="submit" value="Закрыть чек">
+  </form>
+</div>
+<form th:method="get" th:action="@{/marketCheck}">
+  <input type="submit" value="Назад">
+</form>
 </body>
 </html>
