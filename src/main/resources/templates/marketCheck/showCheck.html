@@ -2,19 +2,68 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
   <meta charset="UTF-8">
-  <title th:valuetype="${marketCheck.getId()}">Title</title>
+  <title th:text="${marketCheck.getId()}">Title</title>
 </head>
 <body>
 <span th:text="${'|Id чека: ' + marketCheck.getId() + '|'}"/><span th:text="${marketCheck.getMarketName() + '|'}"/>
 <div th:if="${marketCheck.getCardNumber()}!=0">
   <span th:text="'|Дисконтная карта: ' + ${marketCheck.getCardNumber()}+'|'"/>
+  <br/>
+  <h>-------------------------------------------</h>
+  <div th:if="${!marketCheck.getPurchasesList().isEmpty()}">
+    <div th:each="purchase : ${marketCheck.getPurchasesList()}">
+<!--      Если товаров больше 5-->
+      <div th:if="${purchase.getAmount() > 5}">
+        <span th:text="${purchase.getProductId().getName()}"></span>
+        <span th:text="${purchase.getAmount() + ' x'}"></span>
+        <span th:text="${purchase.getProductId().getPrice() + ' ='}"></span>
+        <span th:text="${(purchase.getProductId().getPrice() * purchase.getAmount()) - ((purchase.getProductId().getPrice() * purchase.getAmount()) * 0.1)}"></span>
+        <span th:text="'Скидка 10%'" style="color: green"></span>
+        <br/>
+        <h>-------------------------------------------</h>
+      </div>
+      <!--      Если товаров меньше 5-->
+      <div th:if="${purchase.getAmount() <= 5}">
+        <span th:text="${purchase.getProductId().getName()}"></span>
+        <span th:text="${purchase.getAmount() + ' x'}"></span>
+        <span th:text="${purchase.getProductId().getPrice() + ' ='}"></span>
+        <span th:text="${purchase.getProductId().getPrice() * purchase.getAmount()}"></span>
+        <br/>
+        <h>-------------------------------------------</h>
+      </div>
+    </div>
+    <span th:text="'Итого: '+ ${sum}"></span>
+  </div>
 </div>
+
+
+<!--Без дискнотной - без скидки-->
 <div th:if="${marketCheck.getCardNumber()}==0">
   <span th:text="'|Дисконтная карта не предявлена'+'|'"/>
+  <br/>
+  <h>-------------------------------------------</h>
+  <div th:if="${!marketCheck.getPurchasesList().isEmpty()}">
+    <div th:each="purchase : ${marketCheck.getPurchasesList()}">
+      <span th:text="${purchase.getProductId().getName()}"></span>
+      <span th:text="${purchase.getAmount() + ' x'}"></span>
+      <span th:text="${purchase.getProductId().getPrice() + ' ='}"></span>
+      <span th:text="${purchase.getProductId().getPrice() * purchase.getAmount()}"></span>
+      <br/>
+      <h>-------------------------------------------</h>
+    </div>
+    <span th:text="'Итого: '+ ${sum}"></span>
+  </div>
 </div>
---------------------------------------------
-<div th:each="purchase : ${marketCheck.getPurchasesList()}">
-  <p th:text="${purchase.getId()}"></p>
+<div th:if="${marketCheck.getOpenStatus()}">
+  <span style="color: green"> Чек открыт</span>
+</div>
+<div th:if="${!marketCheck.getOpenStatus()}">
+  <span style="color: red"> Чек закрыт</span>
+</div>
+<div th:if="${marketCheck.getOpenStatus()}">
+  <form>
+
+  </form>
 </div>
 </body>
 </html>

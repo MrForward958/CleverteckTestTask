@@ -31,6 +31,7 @@ public class Product implements Serializable {
     @OneToMany(mappedBy = "productId")
     private List<Purchases> purchasesList;
 
+
     public Product() {
 
     }

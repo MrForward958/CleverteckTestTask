@@ -18,13 +18,11 @@ public class MarketCheck{
     private int id;
 
     @Max(message = "Номер карты не должен быть больше 100000", value = 100000)
-    @Min(message = "Номер карты должен быть больше 0", value = 1)
+    @Min(message = "Номер карты должен быть больше 0", value = 0)
     @Column(name = "card_number")
     private int cardNumber;
 
-    @NotEmpty(message = "Название магазина не может быть пустым")
     @Column(name = "market_name")
-    @Size(min = 2, max = 50, message = "Название магазина должно быть в диапазоне от 2 до 50 символов")
     private String marketName;
 
     @Column(name = "create_date")
@@ -36,7 +34,6 @@ public class MarketCheck{
 
     @OneToMany(mappedBy = "checkId")
     private List<Purchases> purchasesList;
-
 
     public MarketCheck(){
     }

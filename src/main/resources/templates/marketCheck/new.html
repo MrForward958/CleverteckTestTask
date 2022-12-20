@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<form th:method="POST" th:action="@{/marketCheck}" th:object="${marketCheck}">
+    <label for="cardNumber">Введите номер дисконтной карты: </label>
+    <input type="text" th:field="*{cardNumber}" id="cardNumber"/>
+    <div style="color: red" th:field="${#fields.hasErrors('cardNumber')}" th:errors="*{cardNumber}">Error for field cardNumber</div>
+    <br/>
+    <input type="submit" value="Добавить дисконтную карту">
+</form>
+</body>
+</html>

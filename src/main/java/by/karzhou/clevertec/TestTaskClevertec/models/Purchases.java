@@ -11,6 +11,9 @@ public class Purchases{
     @Column(name = "id")
     private int id;
 
+    @Column(name = "amount")
+    private int amount;
+
     @ManyToOne
     @JoinColumn(name = "check_id", referencedColumnName = "id")
     private MarketCheck checkId;
@@ -19,11 +22,13 @@ public class Purchases{
     @JoinColumn(name = "product_id", referencedColumnName = "id")
     private Product productId;
 
+
     public Purchases(){
 
     }
 
-    public Purchases(MarketCheck checkId, Product productId) {
+    public Purchases(int amount, MarketCheck checkId, Product productId) {
+        this.amount = amount;
         this.checkId = checkId;
         this.productId = productId;
     }
@@ -51,5 +56,13 @@ public class Purchases{
 
     public void setProductId(Product productId) {
         this.productId = productId;
+    }
+
+    public int getAmount() {
+        return amount;
+    }
+
+    public void setAmount(int amount) {
+        this.amount = amount;
     }
 }
